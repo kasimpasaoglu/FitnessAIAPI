@@ -1,0 +1,31 @@
+
+CREATE TABLE Users (
+    UserId UNIQUEIDENTIFIER PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Surname NVARCHAR(100) NOT NULL,
+    Height_cm FLOAT NOT NULL,
+    Weight_kg FLOAT NOT NULL,
+    Gender NVARCHAR(10) NOT NULL,
+    Goal NVARCHAR(50) NOT NULL,
+    AvailableDays NVARCHAR(200) NOT NULL, -- JSON string
+    HasHealthIssues BIT NOT NULL,
+    MedicationsUsing NVARCHAR(255) NULL
+);
+
+
+CREATE TABLE WorkoutPlans (
+    PlanId UNIQUEIDENTIFIER PRIMARY KEY,
+    UserId UNIQUEIDENTIFIER NOT NULL,
+    ExerciseJson NVARCHAR(MAX) NOT NULL, -- JSON from AI
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_WorkoutPlans_Users FOREIGN KEY (UserId) REFERENCES Users(UserId)
+);
+
+
+CREATE TABLE CompletedExercises (
+    CompletionId UNIQUEIDENTIFIER PRIMARY KEY,
+    PlanId UNIQUEIDENTIFIER NOT NULL,
+    ExerciseName NVARCHAR(100) NOT NULL,
+    CompletedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_CompletedExercises_WorkoutPlans FOREIGN KEY (PlanId) REFERENCES WorkoutPlans(PlanId)
+);

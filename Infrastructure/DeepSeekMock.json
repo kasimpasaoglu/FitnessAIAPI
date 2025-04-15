@@ -1,0 +1,148 @@
+{
+  "program_duration_weeks": 8,
+  "weekly_schedule": [
+    {
+      "day": "Monday",
+      "warmup": "5-10 min light cardio (treadmill/bike) + dynamic stretches",
+      "focus": "Chest & Triceps",
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": 4,
+          "reps": 8,
+          "weight_range_kg": "20-30kg (start light, focus on form)"
+        },
+        {
+          "name": "Incline Dumbbell Press",
+          "sets": 3,
+          "reps": 10,
+          "weight_range_kg": "10-15kg per hand"
+        },
+        {
+          "name": "Push-ups",
+          "sets": 3,
+          "reps": 12,
+          "weight_range_kg": "Bodyweight"
+        },
+        {
+          "name": "Triceps Dips (Assisted)",
+          "sets": 3,
+          "reps": 8,
+          "weight_range_kg": "Bodyweight"
+        }
+      ],
+      "cooldown": "5 min static stretching (chest/arms)"
+    },
+    {
+      "day": "Tuesday",
+      "warmup": "5-10 min rowing machine + arm circles",
+      "focus": "Back & Biceps",
+      "exercises": [
+        {
+          "name": "Lat Pulldown",
+          "sets": 4,
+          "reps": 10,
+          "weight_range_kg": "25-35kg"
+        },
+        {
+          "name": "Seated Cable Row",
+          "sets": 3,
+          "reps": 10,
+          "weight_range_kg": "20-30kg"
+        },
+        {
+          "name": "Dumbbell Bicep Curl",
+          "sets": 3,
+          "reps": 12,
+          "weight_range_kg": "8-12kg per hand"
+        },
+        {
+          "name": "Face Pull",
+          "sets": 3,
+          "reps": 12,
+          "weight_range_kg": "10-15kg"
+        }
+      ],
+      "cooldown": "5 min stretching (back/shoulders)"
+    },
+    {
+      "day": "Wednesday",
+      "warmup": "5-10 min cycling + bodyweight squats",
+      "focus": "Legs",
+      "exercises": [
+        {
+          "name": "Bodyweight Squats",
+          "sets": 3,
+          "reps": 15,
+          "weight_range_kg": "Bodyweight"
+        },
+        {
+          "name": "Dumbbell Romanian Deadlift",
+          "sets": 3,
+          "reps": 10,
+          "weight_range_kg": "12-20kg per hand"
+        },
+        {
+          "name": "Leg Press Machine",
+          "sets": 3,
+          "reps": 12,
+          "weight_range_kg": "40-60kg"
+        },
+        {
+          "name": "Standing Calf Raises",
+          "sets": 3,
+          "reps": 15,
+          "weight_range_kg": "Bodyweight or +10kg dumbbell"
+        }
+      ],
+      "cooldown": "5 min stretching (hamstrings/quads)"
+    },
+    {
+      "day": "Thursday",
+      "warmup": "5-10 min jump rope + shoulder rolls",
+      "focus": "Shoulders & Core",
+      "exercises": [
+        {
+          "name": "Dumbbell Shoulder Press",
+          "sets": 4,
+          "reps": 8,
+          "weight_range_kg": "10-15kg per hand"
+        },
+        {
+          "name": "Lateral Raises",
+          "sets": 3,
+          "reps": 12,
+          "weight_range_kg": "5-8kg per hand"
+        },
+        {
+          "name": "Front Plate Raises",
+          "sets": 3,
+          "reps": 12,
+          "weight_range_kg": "5-10kg plate"
+        },
+        {
+          "name": "Plank",
+          "sets": 3,
+          "reps": "30 sec hold",
+          "weight_range_kg": "Bodyweight"
+        }
+      ],
+      "cooldown": "5 min stretching (shoulders/core)"
+    }
+  ],
+  "active_recovery_days": [
+    {
+      "day": "Friday",
+      "activity": "30 min walking or light swimming"
+    },
+    {
+      "day": "Saturday",
+      "activity": "Yoga or mobility exercises"
+    },
+    {
+      "day": "Sunday",
+      "activity": "Complete rest or gentle stretching"
+    }
+  ],
+  "personal_note": "Kasim, as a beginner at 60kg bodyweight, focus on perfecting your form before increasing weights. Track your weekly progress - you should aim to add 1-2kg to lifts every 2 weeks. Your current frame can likely support 5-7kg of muscle gain in this 8-week phase. Pay special attention to your bench press and squat form - these will be key indicators of your progress."
+}
