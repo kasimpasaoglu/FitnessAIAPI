@@ -1,10 +1,10 @@
 # 1. Base image: .NET 9 ASP.NET Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0-preview AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 80
 
 # 2. SDK image: .NET 9 SDK (build & publish aşaması için)
-FROM mcr.microsoft.com/dotnet/sdk:9.0-preview AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # Proje dosyasını kopyala ve restore et
