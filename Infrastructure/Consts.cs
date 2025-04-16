@@ -1,4 +1,4 @@
-public static class FitnessGoals
+public static class Constants
 {
     public static readonly List<string> Goals = new()
     {

@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using API.DMO;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -18,7 +19,15 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] UserVM user)
+    [Produces("application/json")]
+    [SwaggerOperation(
+        Summary = "Register a new user",
+        Description = "Registers a new user to the system with the provided profile details. This operation can only be performed once per user. It does not generate a workout plan."
+    )]
+    [SwaggerResponse(200, "User successfully registered", typeof(RegisterResponse))] // JSON { userId = Guid }
+    [SwaggerResponse(400, "Invalid input or user already registered")]
+    [SwaggerResponse(500, "Unexpected server error")]
+    public async Task<IActionResult> Register([FromBody] RegisterRequest user)
     {
         if (user == null)
         {
@@ -29,7 +38,7 @@ public class UserController : ControllerBase
         try
         {
             var result = await _userService.RegisterAsync(userDTO);
-            return Ok(new { userId = result });
+            return Ok(new RegisterResponse { UserId = result });
         }
         catch (InvalidOperationException ex)
         {
@@ -41,7 +50,17 @@ public class UserController : ControllerBase
         }
     }
 
+
+
     [HttpGet("{id}")]
+    [Produces("application/json")]
+    [SwaggerOperation(
+        Summary = "Get user by ID",
+        Description = "Retrieves user profile data for the specified user ID. This can be used to log in or display user information."
+    )]
+    [SwaggerResponse(200, "User found", typeof(UserVM))]
+    [SwaggerResponse(404, "User not found")]
+    [SwaggerResponse(500, "Unexpected server error")]
     public async Task<IActionResult> LoginUser(Guid id)
     {
         try
@@ -63,7 +82,17 @@ public class UserController : ControllerBase
 
     }
 
+
+
     [HttpPut("update")]
+    [Produces("application/json")]
+    [SwaggerOperation(
+        Summary = "Update user profile",
+        Description = "Updates an existing user's profile data. Returns the updated user info if successful."
+    )]
+    [SwaggerResponse(200, "User successfully updated", typeof(UserVM))]
+    [SwaggerResponse(400, "Invalid input or update failed")]
+    [SwaggerResponse(500, "Unexpected server error")]
     public async Task<IActionResult> UpdateUser([FromBody] UserVM user)
     {
         var userDto = _mapper.Map<UserDTO>(user);
@@ -86,6 +115,14 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Produces("application/json")]
+    [SwaggerOperation(
+        Summary = "Delete user by ID",
+        Description = "Deletes the user with the specified ID, along with their associated workout plan if it exists."
+    )]
+    [SwaggerResponse(200, "User successfully deleted", typeof(object))] // {"message": "..."}
+    [SwaggerResponse(400, "Invalid request or user could not be deleted")]
+    [SwaggerResponse(500, "Unexpected server error")]
     public async Task<IActionResult> DeleteUser(Guid id)
     {
         try

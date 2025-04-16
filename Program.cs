@@ -24,6 +24,15 @@ if (string.IsNullOrEmpty(mongoConn))
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.EnableAnnotations();
+});
+
+
+
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
@@ -70,10 +79,18 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddSingleton(_ => new MongoDBClient(mongoConn));
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IDeepSeekService, DeepSeekService>();
+builder.Services.AddHttpClient<IDeepSeekService, DeepSeekService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWorkoutPlannerService, WorkoutPlannerService>();
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "FitnessMentorAI API V1");
+});
+
 
 app.UseCors();
 app.UseMiddleware<LoggingMiddleware>();

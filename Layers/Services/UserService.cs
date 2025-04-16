@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using API.DMO;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -25,7 +26,7 @@ public class UserService : IUserService
         }
         await _logService.LogSuccess("User Logged In", "LoginUser", new
         {
-            userId = userDMO.UserId,
+            userId = userDMO.UserId.ToString(),
             userName = userDMO.Name,
             userSurname = userDMO.Surname
         });
@@ -53,7 +54,7 @@ public class UserService : IUserService
             // Log success
             await _logService.LogSuccess("User Registered", "RegisterUser", new
             {
-                userId = userEntity.UserId,
+                userId = userEntity.UserId.ToString(),
                 userName = user.Name,
                 userSurname = user.Surname
             });
@@ -94,9 +95,9 @@ public class UserService : IUserService
             userEntity.WeightKg = user.WeightKg;
             userEntity.Gender = user.Gender;
             userEntity.Goal = user.Goal;
-            userEntity.AvailableDays = user.AvailableDays;
+            userEntity.AvailableDays = JsonSerializer.Serialize(user.AvailableDays);
             userEntity.HasHealthIssues = user.HasHealthIssues;
-            userEntity.MedicationsUsing = user.MedicationsUsing;
+            userEntity.MedicationsUsing = JsonSerializer.Serialize(user.MedicationsUsing);
 
             var updateResult = await _unitOfWork.User.UpdateAsync(userEntity);
             if (updateResult == 0)
@@ -109,7 +110,7 @@ public class UserService : IUserService
             // Log success
             await _logService.LogSuccess("User Updated", "Update User", new
             {
-                userId = user.UserId,
+                userId = user.UserId.ToString(),
                 userName = user.Name,
                 userSurname = user.Surname
             });
@@ -123,7 +124,7 @@ public class UserService : IUserService
             // Log error
             await _logService.LogError("User Update Failed", "Update User", ex, new
             {
-                userId = user.UserId,
+                userId = user.UserId.ToString(),
                 userName = user.Name,
                 userSurname = user.Surname
             });
@@ -143,16 +144,25 @@ public class UserService : IUserService
             {
                 throw new DirectoryNotFoundException("User not found");
             }
-            var result = await _unitOfWork.User.DeleteAsync(userToDelete);
-            if (result == 0)
+
+            var workoutToDelete = await _unitOfWork.WorkoutPlan.FindAsync(x => x.UserId == id);
+            if (workoutToDelete != null)
+            {
+                await _unitOfWork.WorkoutPlan.DeleteAsync(workoutToDelete); // delete workout plan if exists
+            }
+
+            var userResult = await _unitOfWork.User.DeleteAsync(userToDelete);
+            if (userResult == 0)
             {
                 throw new InvalidOperationException("An error occurred while deleting the user");
             }
             await _unitOfWork.CommitTransactionAsync(); // commit deleting process
+
             // Log success
-            await _logService.LogSuccess("User Deleted", "DeleteUser", new
+            await _logService.LogSuccess("User & Workout Plan Deleted", "DeleteUser", new
             {
-                userId = userToDelete.UserId,
+                userId = userToDelete.UserId.ToString(),
+                planId = workoutToDelete.PlanId.ToString(),
                 userName = userToDelete.Name,
                 userSurname = userToDelete.Surname
             });
@@ -163,7 +173,7 @@ public class UserService : IUserService
             // Log error
             await _logService.LogError("User Deletion Attempt Failed", "DeleteUser", ex, new
             {
-                userId = id,
+                userId = id.ToString(),
             });
 
             throw new InvalidOperationException("An error occurred while deleting the user", ex);

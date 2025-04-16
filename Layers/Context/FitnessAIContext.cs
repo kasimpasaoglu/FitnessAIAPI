@@ -29,7 +29,7 @@ public partial class FitnessAIContext : DbContext
     {
         modelBuilder.Entity<CompletedExercise>(entity =>
         {
-            entity.HasKey(e => e.CompletionId).HasName("PK__Complete__77FA708F0155156C");
+            entity.HasKey(e => e.CompletionId).HasName("PK__Complete__77FA708F967DE997");
 
             entity.Property(e => e.CompletionId).ValueGeneratedNever();
             entity.Property(e => e.CompletedAt)
@@ -45,7 +45,7 @@ public partial class FitnessAIContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4CCECA3FB5");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C2FEA8F1C");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
             entity.Property(e => e.AvailableDays).HasMaxLength(200);
@@ -60,7 +60,7 @@ public partial class FitnessAIContext : DbContext
 
         modelBuilder.Entity<WorkoutPlan>(entity =>
         {
-            entity.HasKey(e => e.PlanId).HasName("PK__WorkoutP__755C22B7D98276F0");
+            entity.HasKey(e => e.PlanId).HasName("PK__WorkoutP__755C22B7ABD27108");
 
             entity.Property(e => e.PlanId).ValueGeneratedNever();
             entity.Property(e => e.CreatedAt)

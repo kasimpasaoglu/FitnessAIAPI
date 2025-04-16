@@ -1,4 +1,5 @@
 
+using System.Linq.Expressions;
 using API.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,5 +37,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         _dbSet.Update(entity);
         return await _context.SaveChangesAsync();
+    }
+
+    public async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _dbSet.FirstOrDefaultAsync(predicate);
     }
 }

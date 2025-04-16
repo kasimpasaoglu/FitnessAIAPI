@@ -12,7 +12,7 @@ public class MongoDBClient
     public async Task AddLog<T>(T logEntry, string collectionName) where T : ILogEntry
     {
         var fullCollectionName = $"{collectionName}_{DateTime.UtcNow:yyyy_MM_dd}";
-        var collection = _database.GetCollection<BsonDocument>(fullCollectionName);
-        await collection.InsertOneAsync(logEntry.ToBsonDocument());
+        var collection = _database.GetCollection<T>(fullCollectionName);
+        await collection.InsertOneAsync(logEntry);
     }
 }

@@ -3,6 +3,7 @@ CREATE TABLE Users (
     UserId UNIQUEIDENTIFIER PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
     Surname NVARCHAR(100) NOT NULL,
+    Age INT Not NULL,
     Height_cm FLOAT NOT NULL,
     Weight_kg FLOAT NOT NULL,
     Gender NVARCHAR(10) NOT NULL,
