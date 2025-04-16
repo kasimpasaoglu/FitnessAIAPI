@@ -38,6 +38,11 @@ public class LoggingMiddleware
                 kvp => kvp.Value?.ToString() ?? string.Empty
             );
 
+            var forwardedFor = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+            var ip = !string.IsNullOrEmpty(forwardedFor)
+                ? forwardedFor.Split(',')[0].Trim()
+                : context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
+
             var log = new LogModel
             {
                 Date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -45,7 +50,7 @@ public class LoggingMiddleware
                 Path = context.Request.Path,
                 QueryString = context.Request.QueryString.Value,
                 RouteValues = routeValues,
-                IP = context.Connection.RemoteIpAddress?.ToString() ?? "Unknown",
+                IP = ip,
                 ResponseStatusCode = context.Response.StatusCode,
                 ProcessDuration = stopwatch.ElapsedMilliseconds,
                 Action = exceptionMessage != null ? "Error" : "Request",
