@@ -29,6 +29,7 @@ public class UserController : ControllerBase
     [SwaggerResponse(500, "Unexpected server error")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest user)
     {
+        Console.WriteLine($"Gelen GOAL: {user.Goal}"); // log
         if (user == null)
         {
             return BadRequest("User cannot be null"); // 400 bad req

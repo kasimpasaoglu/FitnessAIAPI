@@ -94,7 +94,7 @@ public class UserService : IUserService
             userEntity.HeightCm = user.HeightCm;
             userEntity.WeightKg = user.WeightKg;
             userEntity.Gender = user.Gender;
-            userEntity.Goal = user.Goal;
+            userEntity.Goal = user.Goal.ToString();
             userEntity.AvailableDays = JsonSerializer.Serialize(user.AvailableDays);
             userEntity.HasHealthIssues = user.HasHealthIssues;
             userEntity.MedicationsUsing = JsonSerializer.Serialize(user.MedicationsUsing);

@@ -3,16 +3,20 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.OpenApi.Extensions;
 
 public class DeepSeekService : IDeepSeekService
 {
   private readonly HttpClient _httpClient;
   private readonly string _apiKey;
+  private readonly ILogService _logService;
 
 
 
-  public DeepSeekService(HttpClient httpClient)
+  public DeepSeekService(HttpClient httpClient, ILogService logService)
   {
+    _logService = logService;
     _httpClient = httpClient;
     _apiKey = Environment.GetEnvironmentVariable("DEEPSEEK_API_KEY") ?? throw new ArgumentNullException("DEEPSEEK_API_KEY not found");
   }
@@ -38,7 +42,7 @@ public class DeepSeekService : IDeepSeekService
 
     var url = "https://api.deepseek.com/chat/completions";
 
-    var promt = GeneratePrompt(user);
+    var promt = await GeneratePrompt(user);
     var requestBody = new
     {
       model = "deepseek-chat",
@@ -92,7 +96,7 @@ public class DeepSeekService : IDeepSeekService
   }
 
 
-  private string GeneratePrompt(UserDTO user)
+  private async Task<string> GeneratePrompt(UserDTO user)
   {
     var example = new ExerciseJsonModel
     {
@@ -122,6 +126,7 @@ public class DeepSeekService : IDeepSeekService
       PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     });
 
+    var goal = user.Goal.GetDisplayName();
     var promptUserData = new
     {
       user.Name,
@@ -130,14 +135,19 @@ public class DeepSeekService : IDeepSeekService
       user.HeightCm,
       user.WeightKg,
       user.Gender,
-      user.Goal,
+      goal,
       user.AvailableDays,
       user.HasHealthIssues,
       user.MedicationsUsing
     };
 
+    var userDataJson = JsonSerializer.Serialize(promptUserData, new JsonSerializerOptions
+    {
+      WriteIndented = true
+    });
+
     var prompt = $@"Create a personalized fitness plan based on this user data:
-      {JsonSerializer.Serialize(promptUserData)}
+      {userDataJson}
       Each workout day must include:
       - warm-up,
       - muscle group focus,
@@ -148,6 +158,14 @@ public class DeepSeekService : IDeepSeekService
       Also, add a motivational message, personal suggestions and tips in 'personalNote'.
       Respond STRICTLY in the following JSON format. NO CHANGES TO STRUCTURE:
       {exampleJson}";
+
+    // log promt
+    await _logService.LogSuccess("Prompt Sent", "DeepSeekService", new
+    {
+      userId = user.UserId.ToString(),
+      prompt
+    });
+
     return prompt;
   }
 

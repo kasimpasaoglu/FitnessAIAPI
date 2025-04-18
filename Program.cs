@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using API.DataAccessLayer;
 using DotNetEnv;
 using FluentValidation;
@@ -35,7 +37,18 @@ builder.Services.AddSwaggerGen(options =>
 
 
 builder.Services.AddOpenApi();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opt =>
+    {
+        opt.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+        // BU DOĞRU
+        opt.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter(namingPolicy: null));
+    });
+
+
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
