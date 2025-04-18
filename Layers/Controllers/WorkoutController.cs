@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/user/")]
 public class WorkoutController : ControllerBase
 {
     private readonly IWorkoutPlannerService _workoutPlannerService;
@@ -18,7 +18,7 @@ public class WorkoutController : ControllerBase
 
 
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}/workout")]
     [Produces("application/json")]
     [SwaggerOperation(
         Summary = "Get workout plan for user",
