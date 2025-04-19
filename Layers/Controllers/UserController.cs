@@ -18,7 +18,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpPost("register")]
+    [HttpPost]
     [Produces("application/json")]
     [SwaggerOperation(
         Summary = "Register a new user",
@@ -27,7 +27,7 @@ public class UserController : ControllerBase
     [SwaggerResponse(200, "User successfully registered", typeof(RegisterResponse))] // JSON { userId = Guid }
     [SwaggerResponse(400, "Invalid input or user already registered")]
     [SwaggerResponse(500, "Unexpected server error")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest user)
+    public async Task<IActionResult> POST([FromBody] RegisterRequest user)
     {
         Console.WriteLine($"Gelen GOAL: {user.Goal}"); // log
         if (user == null)
@@ -62,7 +62,7 @@ public class UserController : ControllerBase
     [SwaggerResponse(200, "User found", typeof(UserVM))]
     [SwaggerResponse(404, "User not found")]
     [SwaggerResponse(500, "Unexpected server error")]
-    public async Task<IActionResult> LoginUser(Guid id)
+    public async Task<IActionResult> GET(Guid id)
     {
         try
         {
@@ -85,7 +85,7 @@ public class UserController : ControllerBase
 
 
 
-    [HttpPut("update")]
+    [HttpPut("{id}")]
     [Produces("application/json")]
     [SwaggerOperation(
         Summary = "Update user profile",
@@ -94,9 +94,16 @@ public class UserController : ControllerBase
     [SwaggerResponse(200, "User successfully updated", typeof(UserVM))]
     [SwaggerResponse(400, "Invalid input or update failed")]
     [SwaggerResponse(500, "Unexpected server error")]
-    public async Task<IActionResult> UpdateUser([FromBody] UserVM user)
+    public async Task<IActionResult> UpdateUser([FromBody] RegisterRequest user, Guid id)
     {
+        if (user == null)
+        {
+            return BadRequest("User cannot be null"); // 400 bad req
+        }
+        // Map the incoming user data to a DTO
+
         var userDto = _mapper.Map<UserDTO>(user);
+        userDto.UserId = id;
         try
         {
             var updatedDTO = await _userService.UpdateAsync(userDto);
@@ -114,6 +121,7 @@ public class UserController : ControllerBase
             }
         }
     }
+
 
     [HttpDelete("{id}")]
     [Produces("application/json")]

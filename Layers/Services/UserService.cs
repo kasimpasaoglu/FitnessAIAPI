@@ -162,7 +162,7 @@ public class UserService : IUserService
             await _logService.LogSuccess("User & Workout Plan Deleted", "DeleteUser", new
             {
                 userId = userToDelete.UserId.ToString(),
-                planId = workoutToDelete.PlanId.ToString(),
+                planId = workoutToDelete?.PlanId.ToString() ?? "NoPlan",
                 userName = userToDelete.Name,
                 userSurname = userToDelete.Surname
             });
