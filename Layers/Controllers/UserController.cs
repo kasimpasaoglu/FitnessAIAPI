@@ -22,9 +22,9 @@ public class UserController : ControllerBase
     [Produces("application/json")]
     [SwaggerOperation(
         Summary = "Register a new user",
-        Description = "Registers a new user to the system with the provided profile details. This operation can only be performed once per user. It does not generate a workout plan."
+        Description = "Registers a new user to the system with the provided profile details. It does not generate a workout plan."
     )]
-    [SwaggerResponse(200, "User successfully registered", typeof(RegisterResponse))] // JSON { userId = Guid }
+    [SwaggerResponse(200, "User successfully registered", typeof(UserVM))]
     [SwaggerResponse(400, "Invalid input or user already registered")]
     [SwaggerResponse(500, "Unexpected server error")]
     public async Task<IActionResult> POST([FromBody] RegisterRequest user)
@@ -39,7 +39,7 @@ public class UserController : ControllerBase
         try
         {
             var result = await _userService.RegisterAsync(userDTO);
-            return Ok(new RegisterResponse { UserId = result });
+            return Ok(_mapper.Map<UserVM>(result)); // 200 ok
         }
         catch (InvalidOperationException ex)
         {

@@ -33,7 +33,7 @@ public class UserService : IUserService
         return _mapper.Map<UserDTO>(userDMO);
     }
 
-    public async Task<Guid> RegisterAsync(UserDTO user)
+    public async Task<UserDTO> RegisterAsync(UserDTO user)
     {
         using var transaction = await _unitOfWork.BeginTransactionAsync();
 
@@ -43,7 +43,7 @@ public class UserService : IUserService
 
             var userEntity = _mapper.Map<User>(user);
 
-            await _unitOfWork.User.AddAsync(userEntity); // user registration
+            var registeredUser = await _unitOfWork.User.AddAsync(userEntity); // user registration
 
             // Save changes to the database
             await _unitOfWork.SaveAsync();
@@ -51,13 +51,17 @@ public class UserService : IUserService
             // Commit the transaction
             await _unitOfWork.CommitTransactionAsync();
 
+
+
             // Log success
             await _logService.LogSuccess("User Registered", "RegisterUser", new
             {
-                userId = userEntity.UserId.ToString(),
-                userName = user.Name,
-                userSurname = user.Surname
+                userId = registeredUser.UserId.ToString(),
+                userName = registeredUser.Name,
+                userSurname = registeredUser.Surname
             });
+
+            return _mapper.Map<UserDTO>(registeredUser);
         }
         catch (Exception ex)
         {
@@ -72,9 +76,6 @@ public class UserService : IUserService
 
             throw new InvalidOperationException("An error occurred while registering the user", ex);
         }
-
-        return user.UserId;
-
     }
 
     public async Task<UserDTO> UpdateAsync(UserDTO user)
