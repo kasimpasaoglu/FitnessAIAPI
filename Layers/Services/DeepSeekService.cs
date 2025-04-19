@@ -35,6 +35,7 @@ public class DeepSeekService : IDeepSeekService
       {
         PropertyNameCaseInsensitive = true
       });
+      System.Threading.Thread.Sleep(50000);
       return model;
     }
     #endregion

@@ -1,71 +1,71 @@
 {
-  "programDurationWeeks": 8,
-  "weeklySchedule": [
+  "ProgramDurationWeeks": 6,
+  "WeeklySchedule": [
     {
-      "day": "Monday",
-      "warmup": "5-10 min light cardio (e.g., treadmill or stationary bike) + dynamic stretches (arm circles, leg swings, torso twists)",
-      "focus": "Upper Body (Chest, Shoulders, Triceps)",
-      "exercises": [
+      "Day": "Friday",
+      "Warmup": "5-10 minutes of light cardio (e.g., brisk walking or cycling) followed by dynamic stretches (leg swings, arm circles, torso twists).",
+      "Focus": "Full-body rehabilitation with emphasis on mobility and strength",
+      "Exercises": [
         {
-          "name": "Dumbbell Bench Press",
-          "sets": "3-4",
-          "reps": "8-12",
-          "weightRangeKg": "15-25"
+          "Name": "Bodyweight Squats",
+          "Sets": "3",
+          "Reps": "12-15",
+          "WeightRangeKg": "0 (bodyweight)"
         },
         {
-          "name": "Seated Dumbbell Shoulder Press",
-          "sets": "3",
-          "reps": "10-12",
-          "weightRangeKg": "10-20"
+          "Name": "Seated Rows (Resistance Band)",
+          "Sets": "3",
+          "Reps": "10-12",
+          "WeightRangeKg": "Light to moderate resistance"
         },
         {
-          "name": "Dumbbell Triceps Extension",
-          "sets": "3",
-          "reps": "10-12",
-          "weightRangeKg": "5-10"
+          "Name": "Standing Shoulder Press (Light Dumbbells)",
+          "Sets": "3",
+          "Reps": "8-10",
+          "WeightRangeKg": "5-8 kg"
         },
         {
-          "name": "Push-Ups",
-          "sets": "3",
-          "reps": "AMRAP (As Many Reps As Possible)",
-          "weightRangeKg": "Bodyweight"
+          "Name": "Plank (Modified if needed)",
+          "Sets": "3",
+          "Reps": "20-30 seconds",
+          "WeightRangeKg": "0 (bodyweight)"
         }
       ],
-      "cooldown": "5-10 min static stretching (focus on chest, shoulders, and triceps)"
+      "Cooldown": "5-10 minutes of static stretching (hamstrings, shoulders, back) and deep breathing."
     },
     {
-      "day": "Tuesday",
-      "warmup": "5-10 min light cardio (e.g., rowing machine or brisk walk) + dynamic stretches (hip circles, lunges, arm swings)",
-      "focus": "Lower Body (Legs, Glutes, Core)",
-      "exercises": [
+      "Day": "Saturday",
+      "Warmup": "5-10 minutes of light cardio (e.g., rowing machine or elliptical) followed by dynamic stretches (hip circles, shoulder rolls).",
+      "Focus": "Core stability and functional movement",
+      "Exercises": [
         {
-          "name": "Bodyweight Squats",
-          "sets": "3-4",
-          "reps": "12-15",
-          "weightRangeKg": "Bodyweight"
+          "Name": "Bird-Dog",
+          "Sets": "3",
+          "Reps": "8-10 per side",
+          "WeightRangeKg": "0 (bodyweight)"
         },
         {
-          "name": "Dumbbell Romanian Deadlifts",
-          "sets": "3",
-          "reps": "10-12",
-          "weightRangeKg": "10-20"
+          "Name": "Glute Bridges",
+          "Sets": "3",
+          "Reps": "12-15",
+          "WeightRangeKg": "0 (bodyweight or add light dumbbell on hips)"
         },
         {
-          "name": "Lunges",
-          "sets": "3",
-          "reps": "10-12 per leg",
-          "weightRangeKg": "Bodyweight or 5-10kg dumbbells"
+          "Name": "Wall Push-Ups",
+          "Sets": "3",
+          "Reps": "10-12",
+          "WeightRangeKg": "0 (bodyweight)"
         },
         {
-          "name": "Plank",
-          "sets": "3",
-          "reps": "30-45 sec hold",
-          "weightRangeKg": "Bodyweight"
+          "Name": "Seated Leg Extensions (Resistance Band)",
+          "Sets": "3",
+          "Reps": "10-12 per leg",
+          "WeightRangeKg": "Light resistance"
         }
       ],
-      "cooldown": "5-10 min static stretching (focus on hamstrings, quads, and core)"
+      "Cooldown": "5-10 minutes of gentle yoga poses (Child\u2019s Pose, Cat-Cow) and controlled breathing."
     }
   ],
-  "activeRecoveryNote": "On rest days, try light yoga or a 20-30 min walk to promote recovery and flexibility.",
-  "personalNote": "Health Warning: Since you're on Metoprolol (a beta blocker), monitor your heart rate during workouts and avoid sudden intensity spikes. Start with lighter weights and gradually progress. Stay hydrated and listen to your body. Motivational Tip: Consistency is key! Even small gains add up over time. Focus on protein-rich meals to support muscle growth (e.g., lean meats, eggs, legumes). You’ve got this, Kasim!"
+  "ActiveRecoveryNote": "On non-workout days, engage in low-impact activities like walking (30-45 mins) or restorative yoga to promote circulation and recovery.",
+  "PersonalNote": "Kasim, your focus on rehabilitation is a great step toward long-term health. Since you have no health restrictions, prioritize form over intensity. Progress slowly\u2014listen to your body. Stay hydrated and pair this plan with balanced nutrition for best results. You\u2019ve got this! Consistency will bring strength and mobility. Track your progress weekly to stay motivated."
 }
