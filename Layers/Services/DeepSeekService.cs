@@ -3,8 +3,6 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.OpenApi.Extensions;
 
 public class DeepSeekService : IDeepSeekService
 {
@@ -26,6 +24,7 @@ public class DeepSeekService : IDeepSeekService
 
   public async Task<ExerciseJsonModel> RequestExerciseAsync(UserDTO user)
   {
+
     #region Mock
     var process = Environment.GetEnvironmentVariable("PROCESS");
     if (process == "DEV")
@@ -128,6 +127,10 @@ public class DeepSeekService : IDeepSeekService
     });
 
     var goal = user.Goal.GetDisplayName();
+
+    var availableDays = user.AvailableDays.Select(day => day.GetDisplayName()).ToList();
+
+
     var promptUserData = new
     {
       user.Name,
@@ -137,7 +140,7 @@ public class DeepSeekService : IDeepSeekService
       user.WeightKg,
       user.Gender,
       goal,
-      user.AvailableDays,
+      availableDays,
       user.HasHealthIssues,
       user.MedicationsUsing
     };

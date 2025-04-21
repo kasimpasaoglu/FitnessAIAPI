@@ -4,58 +4,58 @@ public enum FitnessGoal
 {
     Unknown = 0,
     [Display(Name = "Gain Muscle Mass")]
-    GainMuscleMass,
+    GAIN_MUSCLE_MASS,
 
     [Display(Name = "Lose Weight")]
-    LoseWeight,
+    LOSE_WEIGHT,
 
     [Display(Name = "Burn Fat")]
-    BurnFat,
+    BURN_FAT,
 
     [Display(Name = "Improve Endurance")]
-    ImproveEndurance,
+    IMPROVE_ENDURANCE,
 
     [Display(Name = "Build Strength")]
-    BuildStrength,
+    BUILD_STRENGTH,
 
     [Display(Name = "Maintain Fitness")]
-    MaintainFitness,
+    MAINTAIN_FITNESS,
 
     [Display(Name = "Improve Flexibility")]
-    ImproveFlexibility,
+    IMPROVE_FLEXIBILITY,
 
     [Display(Name = "Improve Mobility")]
-    ImproveMobility,
+    IMPROVE_MOBILITY,
 
     [Display(Name = "Improve Cardiovascular Health")]
-    ImproveCardiovascularHealth,
+    IMPROVE_CARDIOVASCULAR_HEALTH,
 
     [Display(Name = "Rehabilitation Training")]
-    RehabilitationTraining,
+    REHABILITATION_TRAINING,
 
     [Display(Name = "Boost Mental Well-being")]
-    BoostMentalWellBeing
+    BOOST_MENTAL_WELL_BEING,
 }
 public enum AvailableDay
 {
     [Display(Name = "Monday")]
-    Monday,
+    MONDAY,
 
     [Display(Name = "Tuesday")]
-    Tuesday,
+    TUESDAY,
 
     [Display(Name = "Wednesday")]
-    Wednesday,
+    WEDNESDAY,
 
     [Display(Name = "Thursday")]
-    Thursday,
+    THURSDAY,
 
     [Display(Name = "Friday")]
-    Friday,
+    FRIDAY,
 
     [Display(Name = "Saturday")]
-    Saturday,
+    SATURDAY,
 
     [Display(Name = "Sunday")]
-    Sunday
+    SUNDAY
 }
