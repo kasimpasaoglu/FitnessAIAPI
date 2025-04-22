@@ -27,5 +27,7 @@ public partial class User
 
     public string? MedicationsUsing { get; set; }
 
+    public string ExperienceLevel { get; set; } = null!;
+
     public virtual ICollection<WorkoutPlan> WorkoutPlans { get; set; } = new List<WorkoutPlan>();
 }

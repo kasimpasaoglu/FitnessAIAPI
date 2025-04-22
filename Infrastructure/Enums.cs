@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 public enum FitnessGoal
 {
-    Unknown = 0,
     [Display(Name = "Gain Muscle Mass")]
     GAIN_MUSCLE_MASS,
 
@@ -58,4 +57,24 @@ public enum AvailableDay
 
     [Display(Name = "Sunday")]
     SUNDAY
+}
+
+public enum ExperienceLevel
+{
+    [Display(Name = "Beginner")]
+    BEGINNER,
+
+    [Display(Name = "Intermediate")]
+    INTERMEDIATE,
+
+    [Display(Name = "Advanced")]
+    ADVANCED
+}
+
+public enum Gender
+{
+    [Display(Name = "Male")]
+    MALE,
+    [Display(Name = "Female")]
+    FEMALE
 }

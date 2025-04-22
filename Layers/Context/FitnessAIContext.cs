@@ -49,6 +49,7 @@ public partial class FitnessAIContext : DbContext
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
             entity.Property(e => e.AvailableDays).HasMaxLength(200);
+            entity.Property(e => e.ExperienceLevel).HasMaxLength(50);
             entity.Property(e => e.Gender).HasMaxLength(10);
             entity.Property(e => e.Goal).HasMaxLength(50);
             entity.Property(e => e.HeightCm).HasColumnName("Height_cm");

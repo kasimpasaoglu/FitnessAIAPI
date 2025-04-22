@@ -127,7 +127,8 @@ public class DeepSeekService : IDeepSeekService
     });
 
     var goal = user.Goal.GetDisplayName();
-
+    var gender = user.Gender.GetDisplayName();
+    var experienceLevel = user.ExperienceLevel.GetDisplayName();
     var availableDays = user.AvailableDays.Select(day => day.GetDisplayName()).ToList();
 
 
@@ -138,11 +139,12 @@ public class DeepSeekService : IDeepSeekService
       user.Age,
       user.HeightCm,
       user.WeightKg,
-      user.Gender,
+      gender,
       goal,
       availableDays,
       user.HasHealthIssues,
-      user.MedicationsUsing
+      user.MedicationsUsing,
+      experienceLevel
     };
 
     var userDataJson = JsonSerializer.Serialize(promptUserData, new JsonSerializerOptions
@@ -150,18 +152,29 @@ public class DeepSeekService : IDeepSeekService
       WriteIndented = true
     });
 
-    var prompt = $@"Create a personalized fitness plan based on this user data:
-      {userDataJson}
-      Each workout day must include:
-      - warm-up,
-      - muscle group focus,
-      - 3–5 exercises with sets, reps, and weight range in kg,
-      - cooldown.
-      For active recovery, write a single helpful note (e.g., yoga, walking) under 'activeRecoveryNote'.
-      If the user has any health issues or takes medication (e.g., beta blockers), adapt the plan accordingly and add a health warning in the 'personalNote'.
-      Also, add a motivational message, personal suggestions and tips in 'personalNote'.
-      Respond STRICTLY in the following JSON format. NO CHANGES TO STRUCTURE:
-      {exampleJson}";
+    var prompt = $@"Create a personalized 8-week fitness plan based on the following user data:
+        {userDataJson}
+        Plan requirements:
+        - Each workout day must include:
+          - Warm-up (5–10 minutes),
+          - Muscle group focus,
+          - 3–5 exercises with: sets, reps, and weight range in kg,
+          - Cooldown (5–10 minutes).
+        - Use realistic weights for the user's experience level:
+          - Beginner: up to 20kg,
+          - Intermediate: up to 40kg,
+          - Advanced: up to 60kg.
+        - Use weight **ranges** instead of fixed numbers (e.g., 12–18).
+        - Spread the plan across user's available days.
+        Recovery:
+        - Write a single suggestion under `activeRecoveryNote`, such as yoga or walking.
+        Health:
+        - If `HasHealthIssues` is true or `MedicationsUsing` is not empty, adapt the plan accordingly.
+        - Add a health note or warning in `personalNote`.
+        Motivation:
+        - Add motivational tips and personal suggestions to `personalNote`.
+        Respond STRICTLY in the following JSON format. DO NOT alter the structure:
+        {exampleJson}";
 
     // log promt
     await _logService.LogSuccess("Prompt Sent", "DeepSeekService", new

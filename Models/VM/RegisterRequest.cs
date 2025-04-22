@@ -7,16 +7,15 @@ public class RegisterRequest
     public int Age { get; set; }
     public double HeightCm { get; set; }
     public double WeightKg { get; set; }
-    public string Gender { get; set; } = null!;
+    public Gender Gender { get; set; }
     public FitnessGoal Goal { get; set; }
     public List<AvailableDay> AvailableDays { get; set; } = null!;
     public bool HasHealthIssues { get; set; }
     public List<string>? MedicationsUsing { get; set; }
+    public ExperienceLevel ExperienceLevel { get; set; }
 }
 public class RegisterValidator : AbstractValidator<RegisterRequest>
 {
-    private readonly string[] allowedGenders = ["Male", "male", "MALE", "Female", "female", "FEMALE"];
-
     public RegisterValidator()
     {
         RuleFor(x => x.Name)
@@ -39,11 +38,9 @@ public class RegisterValidator : AbstractValidator<RegisterRequest>
             .InclusiveBetween(30, 200).WithMessage("Weight must be between 30 and 200 kg.");
 
         RuleFor(x => x.Gender)
-            .Must(g => allowedGenders.Contains(g))
-            .WithMessage("Gender must be 'Male' or 'Female'.");
+            .IsInEnum().WithMessage("Invalid gender");
 
         RuleFor(x => x.Goal)
-            .Must(g => g != FitnessGoal.Unknown).WithMessage("Fitness goal is required.")
             .IsInEnum().WithMessage("Invalid goal.");
 
         RuleFor(x => x.AvailableDays)
@@ -57,5 +54,8 @@ public class RegisterValidator : AbstractValidator<RegisterRequest>
         RuleFor(x => x.MedicationsUsing)
             .NotEmpty().WithMessage("If you have health issues, please list the medications.")
             .When(x => x.HasHealthIssues);
+
+        RuleFor(x => x.ExperienceLevel)
+            .IsInEnum().WithMessage("Invalid experience level.");
     }
 }

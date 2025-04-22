@@ -10,7 +10,8 @@ CREATE TABLE Users (
     Goal NVARCHAR(50) NOT NULL,
     AvailableDays NVARCHAR(200) NOT NULL, -- JSON string
     HasHealthIssues BIT NOT NULL,
-    MedicationsUsing NVARCHAR(255) NULL
+    MedicationsUsing NVARCHAR(255) NULL,
+    ExperienceLevel NVARCHAR(50) NOT NULL
 );
 
 

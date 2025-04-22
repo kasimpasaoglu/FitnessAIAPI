@@ -94,11 +94,12 @@ public class UserService : IUserService
             userEntity.Surname = user.Surname;
             userEntity.HeightCm = user.HeightCm;
             userEntity.WeightKg = user.WeightKg;
-            userEntity.Gender = user.Gender;
+            userEntity.Gender = user.Gender.ToString();
             userEntity.Goal = user.Goal.ToString();
             userEntity.AvailableDays = JsonSerializer.Serialize(user.AvailableDays);
             userEntity.HasHealthIssues = user.HasHealthIssues;
             userEntity.MedicationsUsing = JsonSerializer.Serialize(user.MedicationsUsing);
+            userEntity.ExperienceLevel = user.ExperienceLevel.ToString();
 
             var updateResult = await _unitOfWork.User.UpdateAsync(userEntity);
             if (updateResult == 0)
