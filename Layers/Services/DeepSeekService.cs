@@ -89,9 +89,6 @@ public class DeepSeekService : IDeepSeekService
     {
       PropertyNameCaseInsensitive = true
     });
-
-
-
     return exerciseJson;
   }
 
@@ -149,7 +146,8 @@ public class DeepSeekService : IDeepSeekService
 
     var userDataJson = JsonSerializer.Serialize(promptUserData, new JsonSerializerOptions
     {
-      WriteIndented = true
+      WriteIndented = true,
+      Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     });
 
     var prompt = $@"Create a personalized 8-week fitness plan based on the following user data:
