@@ -21,12 +21,12 @@ public class RegisterValidator : AbstractValidator<RegisterRequest>
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Name is required.")
             .Length(3, 15).WithMessage("Name must be between 3 and 15 characters.")
-            .Matches(@"^[a-zA-Z]+$").WithMessage("Name must contain only letters.");
+            .Matches(@"^[\p{L}'-]+$").WithMessage("Name must contain only letters, apostrophes or hyphens.");
 
         RuleFor(x => x.Surname)
             .NotEmpty().WithMessage("Surname is required.")
             .Length(3, 15).WithMessage("Surname must be between 3 and 15 characters.")
-            .Matches(@"^[a-zA-Z]+$").WithMessage("Surname must contain only letters.");
+            .Matches(@"^[\p{L}'-]+$").WithMessage("Surname must contain only letters, apostrophes or hyphens.");
 
         RuleFor(x => x.Age)
             .InclusiveBetween(18, 100).WithMessage("Age must be between 18 and 100.");

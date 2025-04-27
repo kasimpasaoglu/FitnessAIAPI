@@ -7,6 +7,11 @@ public class MapperProfile : Profile
 {
     public MapperProfile()
     {
+        var relaxedJsonOptions = new JsonSerializerOptions
+        {
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            Converters = { new JsonStringEnumConverter() }
+        };
 
         var jsonEnumOptions = new JsonSerializerOptions
         {
@@ -28,9 +33,9 @@ public class MapperProfile : Profile
 
         CreateMap<UserDTO, User>()
             .ForMember(dest => dest.AvailableDays,
-                opt => opt.MapFrom(src => JsonSerializer.Serialize(src.AvailableDays, jsonEnumOptions)))
+                opt => opt.MapFrom(src => JsonSerializer.Serialize(src.AvailableDays, relaxedJsonOptions)))
             .ForMember(dest => dest.MedicationsUsing,
-                opt => opt.MapFrom((src, dest) => JsonSerializer.Serialize(src.MedicationsUsing)))
+                opt => opt.MapFrom((src, dest) => JsonSerializer.Serialize(src.MedicationsUsing, relaxedJsonOptions)))
             .ForMember(dest => dest.Goal,
                 opt => opt.MapFrom((src, dest) => src.Goal.ToString()))
             .ForMember(dest => dest.Gender,
