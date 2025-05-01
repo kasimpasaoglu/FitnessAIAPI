@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 public class LogService : ILogService
 {
     private readonly MongoDBClient _mongoDBClient;
@@ -29,7 +31,7 @@ public class LogService : ILogService
             {
                 Error = ex.Message,
                 StackTrace = ex.StackTrace,
-                Input = payload
+                Input = payload != null ? JsonSerializer.Serialize(payload) : null,
             }
         };
 

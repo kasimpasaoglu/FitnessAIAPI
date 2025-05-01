@@ -60,7 +60,7 @@ public class UserController : ControllerBase
         Description = "Retrieves user profile data for the specified user ID. This can be used to log in or display user information."
     )]
     [SwaggerResponse(200, "User found", typeof(UserVM))]
-    [SwaggerResponse(404, "User not found")]
+    [SwaggerResponse(400, "User not found")]
     [SwaggerResponse(500, "Unexpected server error")]
     public async Task<IActionResult> GET(Guid id)
     {
@@ -69,7 +69,7 @@ public class UserController : ControllerBase
             var userDTO = await _userService.LoginAsync(id);
             if (userDTO == null)
             {
-                return NotFound("User not found");
+                return BadRequest("User not found");
             }
 
             var user = _mapper.Map<UserVM>(userDTO);
